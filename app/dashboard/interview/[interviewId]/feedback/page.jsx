@@ -27,6 +27,11 @@ function feedback({params}) {
   }
   return (
     <div className='p-10'> 
+    
+    {feedbackList?.length==0?
+     <h2 className='font-bold text-xl text-gray-500'>No Interview  Feedback Record Found</h2>
+    :
+    <>
     <h2 className='text-2xl font-bold text-green-600'>Congratulations!</h2>
     <h2 className='font-bold text-2xl'>Here is your interview feedback</h2>
     <h2 className='text-blue-700 text-lg my-3'>Your overall interview rating : <strong></strong></h2>
@@ -44,8 +49,11 @@ function feedback({params}) {
      </CollapsibleContent>
      </Collapsible> 
      ))}
+      </>}
      <Button onClick={()=>router.replace('/dashboard')}>Go Home</Button>
+    
     </div>
+    
   )
 }
 

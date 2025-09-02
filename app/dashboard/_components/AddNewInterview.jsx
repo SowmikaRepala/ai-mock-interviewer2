@@ -17,6 +17,7 @@ import { MockInterview } from "@/public/utils/schema";
 import { v4 as uuidv4 } from 'uuid';
 import{ useUser } from '@clerk/nextjs';
 import { db } from "@/public/utils/db";
+import { useRouter } from "next/navigation";
 import { moment } from "moment";
 
 
@@ -29,6 +30,10 @@ function AddNewInterview() {
   const[jsonresponse,setJsonResponse]=useState([]);
   
   const{user} = useUser();
+   const router = useRouter();
+  const startinterview=()=>{
+      router.push('/dashboard/interview'+interviewData?.mockId+'/start');
+  }
   const onSubmit=async(e)=>{
     e.preventDefault()
     setLoading(true);
@@ -122,7 +127,7 @@ function AddNewInterview() {
                   >
                     Cancel
                   </Button>
-                 <Button type="submit" disabled={loading}>
+                 <Button type="submit" disabled={loading} onClick={startinterview}>
                   {loading ? (
                    <>
                    <LoaderCircle className="animate-spin" />

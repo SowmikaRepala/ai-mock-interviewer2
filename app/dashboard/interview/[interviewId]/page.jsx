@@ -9,18 +9,24 @@ import Webcam from "react-webcam";
 import { Lightbulb, WebcamIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 function Interview() {
   const params = useParams();
   const [interviewData, setInterviewData] = useState(null);
   const [webCamEnabled, setWebCamEnabled] = useState(false);
-
+   const router = useRouter();
   useEffect(() => {
     if (params?.interviewId) {
       GetInterviewDetails();
     }
   }, [params]);
-
+   
+  const startinginterview=()=>{
+    router.push(
+      '/dashboard/interview/'+interviewData?.mockId+'/start'
+    );
+  }
   const GetInterviewDetails = async () => {
     try {
       const result = await db
@@ -94,7 +100,7 @@ function Interview() {
       )}
     <div className="flex justify-end  items-end">
       <Link href={'/dashboard/interview/'+params.interviewId+'/start'}></Link>
-     <Button>Start Interview</Button>
+     <Button onClick={startinginterview}>Start Interview</Button>
     </div>
     </div>
     
