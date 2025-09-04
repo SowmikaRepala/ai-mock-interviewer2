@@ -34,14 +34,14 @@ const {
   useLegacyResults: false,
 });
 
-// ✅ build transcript safely
+
 useEffect(() => {
   results.map((result)=>(
     setUserAnswer(prevAns=>prevAns+result?.transcript)
   ))
 }, [results]);
 
-// ✅ auto-save when recording stops & answer is long enough
+
 useEffect(() => {
   if (!isRecording && userAnswer.length > 10) {
     UpdateUserAnswer();

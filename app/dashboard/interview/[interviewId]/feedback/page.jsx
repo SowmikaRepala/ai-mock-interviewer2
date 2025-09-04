@@ -13,6 +13,7 @@ import {
 import { ChevronsUpDown } from 'lucide-react';
 function feedback({params}) {
   const [feedbackList,setFeedbackList]=useState([]);
+  const [overallRating, setOverallRating] = useState(null);
   const router = useRouter();
   useEffect(()=>{
      GetFeedback();
@@ -24,6 +25,13 @@ function feedback({params}) {
     .orderBy(UserAnswer.id);
     console.log(result);
     setFeedbackList(result);
+  
+  if(result.length > 0){
+  const ratings = result.map(item => Number(item.rating) || 0);
+  const avg = ratings.reduce((a,b) => a+b, 0) / ratings.length;
+  const scaledAvg = (avg * 2).toFixed(1); // convert to scale of 10
+  setOverallRating(scaledAvg);
+}
   }
   return (
     <div className='p-10'> 
@@ -34,7 +42,7 @@ function feedback({params}) {
     <>
     <h2 className='text-2xl font-bold text-green-600'>Congratulations!</h2>
     <h2 className='font-bold text-2xl'>Here is your interview feedback</h2>
-    <h2 className='text-blue-700 text-lg my-3'>Your overall interview rating : <strong></strong></h2>
+    <h2 className='text-blue-700 text-lg my-3'>Your overall interview rating : <strong>{overallRating}/10</strong></h2>
     <h2 className='ext-sm text-gray-500'>Find below interview questions with correct answer , Your feedbaack for improvement</h2>
      {feedbackList&&feedbackList.map((item,index)=>(
       <Collapsible>
