@@ -44,6 +44,7 @@ useEffect(() => {
 
 useEffect(() => {
   if (!isRecording && userAnswer.length > 10) {
+    console.log("Final Answer:", userAnswer);
     UpdateUserAnswer();
   }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -73,7 +74,7 @@ const UpdateUserAnswer = async() => {
   .replace("```json", "")
   .replace("```", "");
 
-const JsonFeedbackResp = JSON.parse(mockJsonResp);
+    const JsonFeedbackResp = JSON.parse(mockJsonResp);
 console.log("AI Feedback:", JsonFeedbackResp);
 
   

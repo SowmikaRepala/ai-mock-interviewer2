@@ -39,7 +39,7 @@ function AddNewInterview() {
     setLoading(true);
     console.log(jobPosition,jobDesc,jobExperience);
 
-    const InputPrompt = "Job position: "+jobPosition+" , Job Description:"+jobDesc+",Years of Experience : "+jobExperience+" ,Depends on Job Position,Job Description & Years of Experience give us "+process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT+", Interview question along with Answer strictly in json format";
+    const InputPrompt = "Job position: "+jobPosition+" , Job Description:"+jobDesc+",Years of Experience : "+jobExperience+" ,Depends on Job Position,Job Description & Years of Experience give us "+process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT+", Interview question along with Answer strictly in  json format with question and answer as keys without any explanation or notes. Make sure the json response is an array of objects and each object should contain question and answer as keys. Example : [{question: 'What is your greatest strength?', answer: 'My greatest strength is my ability to adapt quickly to new situations and learn new skills efficiently.'},{question: 'Can you describe a challenging situation you faced at work and how you handled it?', answer: 'In my previous role, I was tasked with leading a project that had a very tight deadline. To manage this, I broke the project down into smaller tasks, delegated responsibilities to team members based on their strengths, and maintained open communication throughout the process. We were able to complete the project on time and received positive feedback from our client.'}]";
     const result= await chatSession.sendMessage(InputPrompt);
     const MockJsonResp = ( result.response.text()).replace('```json','').replace('```','');
     console.log(JSON.parse(MockJsonResp));
