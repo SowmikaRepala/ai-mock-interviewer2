@@ -41,14 +41,14 @@ useEffect(() => {
   ))
 }, [results]);
 
-
 useEffect(() => {
-  if (!isRecording && userAnswer.length > 10) {
+  // when recording stops (goes from true ➜ false)
+  if (!isRecording && userAnswer.trim().length > 10) {
     console.log("Final Answer:", userAnswer);
     UpdateUserAnswer();
   }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [userAnswer]);
+}, [isRecording]);
+
 
 const StartStopRecording = () => {
   if (isRecording) {
@@ -66,7 +66,7 @@ const UpdateUserAnswer = async() => {
   const feedbackPrompt = "Question: " 
   + mockInterviewQuestion[activeQuestionIndex]?.question + "User Answer: " 
   + userAnswer +"Depends on question and user Answer"
-  + ". Please give us a rating and feedback as area of improvement."+"Injust 3 to 5 lines to improve it in JSON format with rating and feedback fields";
+  + ". Please give us strict rating out of 10 by analyzing user answer with correct answer and feedback as area of improvement and suggestions."+"Injust 3 to 5 lines to improve it in JSON format with rating and feedback fields";
 
    const result = await chatSession.sendMessage(feedbackPrompt);
 
@@ -75,7 +75,7 @@ const UpdateUserAnswer = async() => {
   .replace("```", "");
 
     const JsonFeedbackResp = JSON.parse(mockJsonResp);
-console.log("AI Feedback:", JsonFeedbackResp);
+    console.log("AI Feedback:", JsonFeedbackResp);
 
   
 

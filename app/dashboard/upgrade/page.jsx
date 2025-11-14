@@ -3,8 +3,10 @@
 import React from 'react'
 import { plans } from '@/public/utils/planData';
 import { Button } from '@/components/ui/button';
+import { useRouter } from "next/navigation";
 
 export default function UpgradePage() {
+   const router = useRouter();
   return (
     <div className="grid grid-cols md:grid-cols-2 gap-6 p-8">
       {plans.map((plan) => (
@@ -31,6 +33,15 @@ export default function UpgradePage() {
               variant="outline"
               className="w-full"
               asChild
+              onClick={() => {
+                if (plan.cost === 0) {
+                  router.replace('/dashboard');
+                } else if (plan.paymentLink) {
+                  window.location.href = plan.paymentLink;
+                } else {
+                  router.replace('/dashboard');
+                }
+              }}
             >
               <a href={plan.paymentLink || "#"}>
                 {plan.cost === 0 ? "Get Started" : "Subscribe"}
